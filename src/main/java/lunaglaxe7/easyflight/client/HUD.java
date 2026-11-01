@@ -1,24 +1,23 @@
-package lunaglaxe7.easyflight;
+package lunaglaxe7.easyflight.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import lunaglaxe7.easyflight.EasyFlight;
+import lunaglaxe7.easyflight.FlightAttachment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
-@OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = EasyFlight.MODID, value = Dist.CLIENT)
 public class HUD {
 
-    private static final ResourceLocation flight_icon = ResourceLocation.fromNamespaceAndPath(
+    private static final Identifier flight_icon = Identifier.fromNamespaceAndPath(
             EasyFlight.MODID,"textures/hud/flight.png"
     );
 
-    private static final ResourceLocation glide_icon = ResourceLocation.fromNamespaceAndPath(
+    private static final Identifier glide_icon = Identifier.fromNamespaceAndPath(
             EasyFlight.MODID,"textures/hud/glide.png"
     );
 
@@ -50,11 +49,11 @@ public class HUD {
 
     }
 
-    private static void drawScaled32At(GuiGraphics gui,ResourceLocation icon, int x, int y, float scale){
-        gui.pose().pushPose();
-        gui.pose().translate(x, y,0);
-        gui.pose().scale(scale, scale, 1);
-        gui.blit(icon, 0, 0, 0, 0, 32 ,32, 32, 32);
-        gui.pose().popPose();
+    private static void drawScaled32At(GuiGraphicsExtractor gui, Identifier icon, int x, int y, float scale){
+        gui.pose().pushMatrix();
+        gui.pose().translate(x, y);
+        gui.pose().scale(scale, scale);
+        gui.blit(icon, 0, 0, 32, 32, 0 ,1, 0, 1);
+        gui.pose().popMatrix();
     }
 }

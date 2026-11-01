@@ -5,19 +5,19 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements CustomPacketPayload {
 
     public static final Type<FlightKeyNetwork> TYPE =
-            new Type<>(ResourceLocation.fromNamespaceAndPath(EasyFlight.MODID, "flight_toggle"));
+            new Type<>(Identifier.fromNamespaceAndPath(EasyFlight.MODID, "flight_toggle"));
 
     public static final StreamCodec<FriendlyByteBuf, FlightKeyNetwork> CODEC =
             StreamCodec.of((buf,p)->{
@@ -36,7 +36,7 @@ public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements Cu
             boolean canFlight = !flight.canFlight();
 
             player.setData(FlightAttachment.FLIGHT, flight.withFlight(canFlight));
-            PacketDistributor.sendToServer(new FlightKeyNetwork(canFlight, false));
+            ClientPacketDistributor.sendToServer(new FlightKeyNetwork(canFlight, false));
         }
     }
 
@@ -47,7 +47,7 @@ public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements Cu
             if (flight.canFlight()){
                 boolean gliding = !flight.gliding();
                 player.setData(FlightAttachment.FLIGHT, flight.withGliding(gliding));
-                PacketDistributor.sendToServer(new FlightKeyNetwork(true, gliding));
+                ClientPacketDistributor.sendToServer(new FlightKeyNetwork(true, gliding));
             }
         }
     }
@@ -59,16 +59,16 @@ public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements Cu
                     new FlightAttachment.Flight(payload.canFlight(), payload.gliding()));
 
             onFlightChanging(player, payload.canFlight());
-            var flight = player.getData(FlightAttachment.FLIGHT);
-            if (flight.canFlight()){
-                if (flight.gliding()){
-                    info("gliding enabled");
-                }else {
-                    info("gliding disabled");
-                }
-            }else {
-                info("flight disabled");
-            }
+//            var flight = player.getData(FlightAttachment.FLIGHT);
+//            if (flight.canFlight()){
+//                if (flight.gliding()){
+//                    info("gliding enabled");
+//                }else {
+//                    info("gliding disabled");
+//                }
+//            }else {
+//                info("flight disabled");
+//            }
         });
     }
 
@@ -95,7 +95,7 @@ public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements Cu
             var vvr = new Vec3(vv.vx(), vv.vy(), vv.vz());
 
             if (speedo < 0.0005f){
-                player.addDeltaMovement(vvr.scale(0.5));
+                player.addDeltaMovement(vvr.scale(0.05));
             }else {
                 vvr.scale(speedo);
                 vvr.add(vvr.scale(0.05));

@@ -1,6 +1,8 @@
-package lunaglaxe7.easyflight;
+package lunaglaxe7.easyflight.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import lunaglaxe7.easyflight.EasyFlight;
+import lunaglaxe7.easyflight.FlightKeyNetwork;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,11 +26,11 @@ public class EasyFlightClient {
     public static final KeyMapping FLIGHT_KEY = new KeyMapping(
             FLIGHT_KEY_NAME, KeyConflictContext.IN_GAME, KeyModifier.NONE, InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_G,
-            KeyMapping.CATEGORY_MISC
+            KeyMapping.Category.MISC
     );
     public static final KeyMapping GLIDE_KEY = new KeyMapping(
             GLIDE_KEY_NAME, KeyConflictContext.IN_GAME, KeyModifier.NONE, InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_LEFT_CONTROL,KeyMapping.CATEGORY_MISC
+            GLFW.GLFW_KEY_LEFT_CONTROL,KeyMapping.Category.MISC
     );
 
     @SubscribeEvent

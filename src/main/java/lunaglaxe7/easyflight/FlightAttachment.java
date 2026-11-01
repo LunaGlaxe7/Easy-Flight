@@ -1,6 +1,7 @@
 package lunaglaxe7.easyflight;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,8 +25,8 @@ public class FlightAttachment {
 
     public record Flight(boolean canFlight, boolean gliding){
 
-        public static final Codec<Flight> CODEC =
-                RecordCodecBuilder.create(
+        public static final MapCodec<Flight> CODEC =
+                RecordCodecBuilder.mapCodec(
                         i -> i.group(
                                 Codec.BOOL.fieldOf("canflight").forGetter(Flight::canFlight),
                                 Codec.BOOL.fieldOf("gliding").forGetter(Flight::gliding)
