@@ -59,16 +59,16 @@ public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements Cu
                     new FlightAttachment.Flight(payload.canFlight(), payload.gliding()));
 
             onFlightChanging(player, payload.canFlight());
-            var flight = player.getData(FlightAttachment.FLIGHT);
-            if (flight.canFlight()){
-                if (flight.gliding()){
-                    info("gliding enabled");
-                }else {
-                    info("gliding disabled");
-                }
-            }else {
-                info("flight disabled");
-            }
+//            var flight = player.getData(FlightAttachment.FLIGHT);
+//            if (flight.canFlight()){
+//                if (flight.gliding()){
+//                    info("gliding enabled");
+//                }else {
+//                    info("gliding disabled");
+//                }
+//            }else {
+//                info("flight disabled");
+//            }
         });
     }
 
@@ -95,7 +95,7 @@ public record FlightKeyNetwork(boolean canFlight, boolean gliding) implements Cu
             var vvr = new Vec3(vv.vx(), vv.vy(), vv.vz());
 
             if (speedo < 0.0005f){
-                player.addDeltaMovement(vvr.scale(0.5));
+                player.addDeltaMovement(vvr.scale(0.05));
             }else {
                 vvr.scale(speedo);
                 vvr.add(vvr.scale(0.05));
