@@ -1,11 +1,5 @@
 
-modLoader="javafml" #mandatory
-
-loaderVersion="${loader_version_range}" #mandatory
-
 license="${mod_license}"
-
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
 
 [[mods]] #mandatory
 
@@ -15,18 +9,10 @@ version="${mod_version}" #mandatory
 
 displayName="${mod_name}" #mandatory
 
-#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
-
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
-
-#logoFile="examplemod.png" #optional
-
-#credits="" #optional
-
 authors="LunaGlaxe7"
 
 description='''
-添加了简单的飞行功能，只要按快捷键就可以切换飞行状态。
+Simple mod that allows you to fly by just press the toggle keybind.
 '''
 
 [[mixins]]
@@ -48,6 +34,3 @@ config="${mod_id}.mixins.json"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
-
-#[features.${mod_id}]
-#openGLVersion="[3.2,)"
