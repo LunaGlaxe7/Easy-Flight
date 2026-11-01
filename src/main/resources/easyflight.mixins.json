@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "lunaglaxe7.easyflight.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EasyFlightMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
